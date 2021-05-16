@@ -89,5 +89,5 @@
 - CI2：客户端与服务器使用RMI的方式进行通信，原理如图：
 
 
-![img](https://img-blog.csdn.net/20180516095947581?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MDY4NDM1Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+![img](https://document2-srs.oss-cn-beijing.aliyuncs.com/HomeworkImgs/通信.jpg)
 
