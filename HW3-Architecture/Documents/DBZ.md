@@ -40,7 +40,7 @@
 
 - ##### 软件体系结构逻辑设计方案（详细设计包图）
 
-<img src="https://document3-architecture.oss-cn-beijing.aliyuncs.com/HomeworkImgs/%E9%80%BB%E8%BE%91%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%A1%88%E5%8C%85%E5%9B%BE.png" style="zoom:50%;" />
+![](https://document3-architecture.oss-cn-beijing.aliyuncs.com/HomeworkImgs/逻辑设计方案包图.png)
 
 
 
@@ -146,4 +146,4 @@ public class Course {
 
 课程学习网站系统的数据库中包含以下表：
 
-<img src="https://document3-architecture.oss-cn-beijing.aliyuncs.com/HomeworkImgs/数据库表.png" style="zoom: 67%;" />
+<img src="https://document3-architecture.oss-cn-beijing.aliyuncs.com/HomeworkImgs/数据库表.png" style="zoom:67%;" />
