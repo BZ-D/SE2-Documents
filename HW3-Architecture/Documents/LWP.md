@@ -11,16 +11,18 @@
 
 - 示意图：
 
-  ![进程图](https://document3-architecture.oss-cn-beijing.aliyuncs.com/HomeworkImgs/进程图.png)
+  <img src="https://document3-architecture.oss-cn-beijing.aliyuncs.com/HomeworkImgs/进程图.png" alt="进程图" style="zoom:67%;" />
 
 
 ### 物理部署
 
-- 课程学习网站(Course-learning)中客户端构建是放在客户端机器上，服务器端构件是放在服务器端机器上。在客户端节点上， 还要部署RMIStub构件。由于Java RMI构件属千JDK8.0的一部分。所以，在系统JDK环境已经设置好的清况下，不需要再独立部署。部署图如下图所示。
+- 课程学习网站(Course-learning)中客户端构建是放在客户端机器上，服务器端构件是放在服务器端机器上。客户端和服务器端之间通过http rest通信。在系统JDK环境已经设置好的情况下，不需要再独立部署。部署图如下图所示。
+  
   - 绘制部署图
+  
 - 示意图
 
-![icon](http://assets.processon.com/chart_image/5ae5be27e4b039625af793c0.png?_=1554259679134)
+  ![部署图](https://document3-architecture.oss-cn-beijing.aliyuncs.com/HomeworkImgs/部署图.png)
 
 ## 架构设计
 
@@ -44,7 +46,7 @@
 |    启动模块    | 负责初始化网络通信机制，初始化网页前端、后端和数据库，展现用户展示网页 |
 |   用户界面层   | 基于前端、后端和数据库的课程学习（Course-learning）网站用户展示网页 |
 |   业务逻辑层   | 对于学生和老师用户的鼠标点击和键盘输入操作进行响应并进行业务处理逻辑 |
-| 客户端网络模块 | 利用Java RMI机制查找RMI服务                                  |
+| 客户端网络模块 | 依赖http rest和服务器端进行通信                              |
 
 ######       表2 服务器端各层的职责
 
@@ -52,7 +54,7 @@
 | ---------------- | ------------------------------------------------------------ |
 | 启动模块         | 负责初始化网络通信机制，初始化网页前端、后端和数据库，展现用户展示网页 |
 | 数据层           | 负责数据的持久化及数据访问接口                               |
-| 服务器端网络模块 | 利用Java RMI机制开启RMI服务，注册RMI服务                     |
+| 服务器端网络模块 | 依赖http rest和客户端进行通信                                |
 
 ​		每一层只是使用下方直接接触的层。层与层之间仅仅是通过接口的调用来完成的。层之间调用的接口如表3所示。
 
