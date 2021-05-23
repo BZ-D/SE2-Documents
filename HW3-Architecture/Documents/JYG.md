@@ -14,35 +14,30 @@
 | userdata                 | databaseutility,po,userdataservice                           |
 | userdataservice          | springframework,http rest,po                                 |
 | rechargeui               | vueframework,vo,rechargeblservice                            |
-| rechargebl               | springframework,rechargeblservice,rechargedataservice,po,userbl,course_ware |
+| rechargebl               | springframework,rechargeblservice,rechargedataservice,po,userbl |
 | rechargeblservice        | springframework,util                                         |
 | rechargedata             | databaseutility,po,rechargedataservice                       |
 | rechargedataservice      | springframework,http rest,po                                 |
 | course_orderui           | vueframework,vo,course_orderblservice                        |
-| course_orderbl           | springframework,course_orderblservice,course_orderdataservice,po,course_warebl |
+| course_orderbl           | springframework,course_orderblservice,course_orderdataservice,po,userbl,promotionbl |
 | course_orderblservice    | springframework,util                                         |
 | course_orderdata         | databaseutility,po,course_orderdataservice                   |
 | course_orderdataservice  | springframework,http rest,po                                 |
 | course_wareui            | vueframework,vo,course_wareblservice                         |
-| course_warebl            | springframework,course_wareblservice,course_waredataservice,po,promotionbl |
+| course_warebl            | springframework,course_wareblservice,course_waredataservice,po,userbl |
 | course_wareblservice     | springframework,util                                         |
 | course_waredata          | databaseutility,po,course_waredataservice                    |
 | course_waredataservice   | springframework,http rest,po                                 |
 | course_manageui          | vueframework,vo,course_manageblservice                       |
-| course_managebl          | springframework,course_manageblservice,course_managedataservice,po,filebl,userbl |
+| course_managebl          | springframework,course_manageblservice,course_managedataservice,po,course_warebl,userbl |
 | course_manageblservice   | springframework,util                                         |
 | course_managedata        | databaseutility,po,course_managedataservice                  |
 | course_managedataservice | springframework,http rest,po                                 |
 | promotionui              | vueframework, promotionblservice                             |
-| promotionbl              | springframework,promotionblservice,promotiondataservice,po   |
+| promotionbl              | springframework,promotionblservice,promotiondataservice,po,userbl |
 | promotionblservice       | springframework,util                                         |
 | promotiondata            | databaseutility,po,promotiondataservice                      |
 | promotiondataservice     | springframework,http rest,po                                 |
-| fileui                   | vueframework,vo,fileblservice                                |
-| filebl                   | springframework,fileblservice,filedataservice,po             |
-| fileblservice            | springframework,util                                         |
-| filedata                 | databaseutility,po,filedataservice                           |
-| filedataservice          | springframework,http rest,po                                 |
 | vo                       |                                                              |
 | po                       | vo                                                           |
 | util                     |                                                              |
@@ -54,9 +49,9 @@
 
 "Course-Learning"课程学习网站系统的前端开发包图如下图所示：
 
-![课程学习网站系统前端开发包图](https://document2-srs.oss-cn-beijing.aliyuncs.com/HomeworkImgs/课程学习网站系统前端开发包图.jpg)
+![课程学习网站系统前端开发包图](https://document3-architecture.oss-cn-beijing.aliyuncs.com/HomeworkImgs/课程学习网站系统前端开发包图.jpg)
 
 "Course-Learning"课程学习网站系统的后端开发包图如下图所示：
 
-![课程学习网站系统后端开发包图](https://document2-srs.oss-cn-beijing.aliyuncs.com/HomeworkImgs/课程学习网站系统后端开发包图.jpg)
+![课程学习网站系统后端开发包图](https://document3-architecture.oss-cn-beijing.aliyuncs.com/HomeworkImgs/课程学习网站系统后端开发包图.jpg)
 
