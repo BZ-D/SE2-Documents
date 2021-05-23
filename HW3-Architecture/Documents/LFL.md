@@ -148,7 +148,7 @@
 | ------------------------------------------------------------ | ---------------- |
 | 服务名                                                       | 服务             |
 | orderMapper.queryMostRecentOrder(orderVO.getUserId(), orderVO.getCourseId()) | 查询用户购买权限 |
-| userMapper.selectByPrimaryKey(order.getUserId()              | 查找用户         |
+| userMapper.selectByPrimaryKey(order.getUserId())             | 查找用户         |
 | userMapper.decreaseBalance(user.getId(), order.getCost())    | 更新用户账户余额 |
 | orderMapper.insert(order)                                    | 增加订单记录     |
 | orderMapper.selectByPrimaryKey(orderId)                      | 查找订单         |
@@ -372,4 +372,3 @@
         <td>返回课程查找结果</td>
     </tr>
     </table>
-
