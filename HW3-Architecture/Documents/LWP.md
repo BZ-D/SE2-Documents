@@ -11,7 +11,7 @@
 
 - 示意图：
 
-  <img src="https://document3-architecture.oss-cn-beijing.aliyuncs.com/HomeworkImgs/进程图.png" alt="进程图" style="zoom:67%;" />
+  ![进程图](https://document3-architecture.oss-cn-beijing.aliyuncs.com/HomeworkImgs/进程图.png)
 
 
 ### 物理部署
