@@ -2,59 +2,24 @@
 
 ## 文档修改历史
 
-| 修改人员 |      日期       |             修改原因             | 版本号 |
-| :------: | :-------------: | :------------------------------: | :----: |
-|  丁炳智  | 2021/5/17 19:30 |         完成分工任务部分         |  0.1   |
-|  林威鹏  | 2021/5/20 1:00  |         完成分工任务部分         |  0.1   |
-|  李福梁  | 2021/5/22 11:40 |         完成分工任务部分         |  0.1   |
-|  姬筠刚  | 2021/5/22 23.50 |         完成分工任务部分         |  0.1   |
-|  丁炳智  | 2021/5/19 16:52 |  修改系统的通信方式为HTTP Rest   | 0.1.1  |
-|  林威鹏  | 2021/5/21 21:26 |      文档修改了模块视图板块      | 0.1.2  |
-|  林威鹏  | 2021/5/22 10:26 |      文档修改了RMI通信部分       | 0.1.3  |
-|  林威鹏  | 2021/5/23 11:20 |         文档修改了进程图         | 0.1.4  |
-|  丁炳智  | 2021/5/23 13:02 | 修改一个包名，以达成文档内容一致 | 0.1.5  |
-|  姬筠刚  | 2021/5/23 14:20 |  删去file包，与courseware包一致  | 0.1.6  |
-|  李福梁  | 2021/5/23 17:34 |     修改接口规范表和细节错误     | 0.1.7  |
-|  丁炳智  | 2021/5/23 20:48 |     整合文档，发布最终提交版     |  0.2   |
+|                    修改人员                    |   日期   |        修改原因        | 版本号 |
+| :--------------------------------------------: | :------: | :--------------------: | :----: |
+|                     姬筠刚                     | 2021-7-5 |       创建该文档       |  0.1   |
+|                     姬筠刚                     | 2021-7-6 | 完成自己分工的文档任务 | 0.1.1  |
+| 往后的日期尽量写在7月8前，体现文档在代码前（笑 |          |                        |        |
+|                                                |          |                        |        |
+|                                                |          |                        |        |
+|                                                |          |                        |        |
+|                                                |          |                        |        |
+|                                                |          |                        |        |
+|                                                |          |                        |        |
+|                                                |          |                        |        |
+|                                                |          |                        |        |
+|                                                |          |                        |        |
 
 ## 目录
 
-- [Course-Learning网站软件体系结构文档](#course-learning网站软件体系结构文档)
-  - [文档修改历史](#文档修改历史)
-  - [目录](#目录)
-  - [1. 引言](#1-引言)
-    - [1.1 编制目的](#11-编制目的)
-    - [1.2 词汇表](#12-词汇表)
-    - [1.3 参考资料](#13-参考资料)
-  - [2. 产品概述](#2-产品概述)
-  - [3. 逻辑视图](#3-逻辑视图)
-  - [4. 组合视图](#4-组合视图)
-    - [4.1 开发包图](#41-开发包图)
-      - [最终开发设计](#最终开发设计)
-      - [前端开发包图](#前端开发包图)
-      - [后端开发包图](#后端开发包图)
-    - [4.2 运行时进程](#42-运行时进程)
-    - [4.3 物理部署](#43-物理部署)
-  - [5. 架构设计](#5-架构设计)
-    - [5.1 模块职责](#51-模块职责)
-      - [5.1.1 模块视图](#511-模块视图)
-      - [5.1.2 各层职责](#512-各层职责)
-        - [表1 客户端各层的职责](#表1-客户端各层的职责)
-        - [表2 服务器端各层的职责](#表2-服务器端各层的职责)
-        - [表3 层之间调用的接口](#表3-层之间调用的接口)
-    - [5.2 用户界面层分解](#52-用户界面层分解)
-      - [5.2.1 职责](#521-职责)
-        - [表4 用户界面层模块的接口规范](#表4-用户界面层模块的接口规范)
-        - [表5 用户界面层模块需要的服务接口](#表5-用户界面层模块需要的服务接口)
-    - [5.3 业务逻辑层的分解](#53-业务逻辑层的分解)
-      - [5.3.1 业务逻辑层模块的职责](#531-业务逻辑层模块的职责)
-      - [5.3.2业务逻辑层模块的接口规范](#532业务逻辑层模块的接口规范)
-    - [5.4 数据层的分解](#54-数据层的分解)
-      - [5.4.1 数据层模块的职责](#541-数据层模块的职责)
-      - [5.4.2 数据层模块的接口规范](#542-数据层模块的接口规范)
-  - [6. 信息视角](#6-信息视角)
-    - [6.1 数据持久化对象](#61-数据持久化对象)
-    - [6.2 数据库表](#62-数据库表)
+[TOC]
 
 
 
@@ -63,9 +28,9 @@
 
 ### 1.1 编制目的
 
-本软件体系结构描述文档对课程学习网站“Course Learning”进行了系统、详细的概要设计，主要目标是对该课程学习网站的详细设计和开发进行指导，并便于测试人员和用户进行沟通。
+本软件体系结构描述文档对课程学习网站“Course Learning迭代三”进行了系统、详细的概要设计，主要目标是对该课程学习网站的详细设计和开发进行指导，并便于测试人员和用户进行沟通。
 
-本文档面向开发人员、测试人员及最终用户编写，是相关人员了解“Course Learning”系统的导航。
+本文档面向开发人员、测试人员及最终用户编写，是相关人员了解“Course Learning”迭代三的导航。
 
 ### 1.2 词汇表
 
@@ -100,76 +65,23 @@
 
 - ##### 软件体系结构逻辑设计方案（详细设计包图）
 
-![](https://document3-architecture.oss-cn-beijing.aliyuncs.com/HomeworkImgs/逻辑设计方案包图.png)
-
-
+![总体详细包图](https://stage3-doc.oss-cn-beijing.aliyuncs.com/HomeworkImgs/%E6%80%BB%E4%BD%93%E8%AF%A6%E7%BB%86%E5%8C%85%E5%9B%BE.jpg)
 
 ## 4. 组合视图
 
 ### 4.1 开发包图
 
-#### 最终开发设计
-
-"Course-Learning"课程学习网站系统的最终开发设计如下表所示。
-
-| 开发（物理）包           | 依赖的其他开发包                                                                            |
-| ------------------------ | ------------------------------------------------------------------------------------------- |
-| mapper                   | ibatis,po                                                                                   |
-| mainui                   | vo, userui, rechargeui, course_orderui, course_wareui, course_manageui, promotionui, fileui |
-| userui                   | vueframework,vo,useblservice                                                                |
-| userbl                   | springframework,useblservice,userdataservice,po                                             |
-| userblservice            | springframework,util                                                                        |
-| userdata                 | databaseutility,po,userdataservice                                                          |
-| userdataservice          | springframework,http rest,po                                                                |
-| rechargeui               | vueframework,vo,rechargeblservice                                                           |
-| rechargebl               | springframework,rechargeblservice,rechargedataservice,po,userbl                             |
-| rechargeblservice        | springframework,util                                                                        |
-| rechargedata             | databaseutility,po,rechargedataservice                                                      |
-| rechargedataservice      | springframework,http rest,po                                                                |
-| course_orderui           | vueframework,vo,course_orderblservice                                                       |
-| course_orderbl           | springframework,course_orderblservice,course_orderdataservice,po,userbl,promotionbl         |
-| course_orderblservice    | springframework,util                                                                        |
-| course_orderdata         | databaseutility,po,course_orderdataservice                                                  |
-| course_orderdataservice  | springframework,http rest,po                                                                |
-| course_wareui            | vueframework,vo,course_wareblservice                                                        |
-| course_warebl            | springframework,course_wareblservice,course_waredataservice,po,userbl                       |
-| course_wareblservice     | springframework,util                                                                        |
-| course_waredata          | databaseutility,po,course_waredataservice                                                   |
-| course_waredataservice   | springframework,http rest,po                                                                |
-| course_manageui          | vueframework,vo,course_manageblservice                                                      |
-| course_managebl          | springframework,course_manageblservice,course_managedataservice,po,course_warebl,userbl     |
-| course_manageblservice   | springframework,util                                                                        |
-| course_managedata        | databaseutility,po,course_managedataservice                                                 |
-| course_managedataservice | springframework,http rest,po                                                                |
-| promotionui              | vueframework, promotionblservice                                                            |
-| promotionbl              | springframework,promotionblservice,promotiondataservice,po,userbl                           |
-| promotionblservice       | springframework,util                                                                        |
-| promotiondata            | databaseutility,po,promotiondataservice                                                     |
-| promotiondataservice     | springframework,http rest,po                                                                |
-| vo                       |                                                                                             |
-| po                       | vo                                                                                          |
-| util                     |                                                                                             |
-| http rest                |                                                                                             |
-| vueframework             |                                                                                             |
-| databaseutility          | JDBC                                                                                        |
-| springframework          |                                                                                             |
-| ibatis                   |                                                                                             |
-
 #### 前端开发包图
 
-"Course-Learning"课程学习网站系统的前端开发包图如下图所示：
+"Course-Learning"课程学习网站系统迭代三的前端开发包图如下图所示：
 
-![课程学习网站系统前端开发包图](https://document3-architecture.oss-cn-beijing.aliyuncs.com/HomeworkImgs/课程学习网站系统前端开发包图.jpg)
-
-
+![迭代三前端开发包图](https://stage3-doc.oss-cn-beijing.aliyuncs.com/HomeworkImgs/%E8%BF%AD%E4%BB%A3%E4%B8%89%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E5%8C%85%E5%9B%BE.jpg)
 
 #### 后端开发包图
 
-"Course-Learning"课程学习网站系统的后端开发包图如下图所示：
+"Course-Learning"课程学习网站系统迭代三的后端开发包图如下图所示：
 
-![课程学习网站系统后端开发包图](https://document3-architecture.oss-cn-beijing.aliyuncs.com/HomeworkImgs/课程学习网站系统后端开发包图.jpg)
-
-
+![迭代三后端开发包图](https://stage3-doc.oss-cn-beijing.aliyuncs.com/HomeworkImgs/%E8%BF%AD%E4%BB%A3%E4%B8%89%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E5%8C%85%E5%9B%BE.jpg)
 
 ### 4.2 运行时进程
 
