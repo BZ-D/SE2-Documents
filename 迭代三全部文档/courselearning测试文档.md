@@ -2,80 +2,24 @@
 
 ### 文档修改历史
 
-|                    修改人员                    |   日期   |        修改原因        | 版本号 |
-| :--------------------------------------------: | :------: | :--------------------: | :----: |
-|                     姬筠刚                     | 2021-7-5 |       创建该文档       |  0.1   |
-|                     姬筠刚                     | 2021-7-6 | 完成自己分工的文档任务 | 0.1.1  |
-| 往后的日期尽量写在7月8前，体现文档在代码前（笑 |          |                        |        |
-|                                                |          |                        |        |
-|                                                |          |                        |        |
-|                                                |          |                        |        |
-|                                                |          |                        |        |
-|                                                |          |                        |        |
-|                                                |          |                        |        |
-|                                                |          |                        |        |
-|                                                |          |                        |        |
-|                                                |          |                        |        |
+| 修改人员 |   日期   |               修改原因               | 版本号 |
+| :------: | :------: | :----------------------------------: | :----: |
+|  姬筠刚  | 2021-7-5 |              创建该文档              |  0.1   |
+|  姬筠刚  | 2021-7-9 |        完成自己分工的文档任务        | 0.1.1  |
+|  李福梁  | 2021-7-9 | 完成自己分工的文档任务，后端单元测试 | 0.1.2  |
+|  林威鹏  | 2021-7-9 |         完成后端集成测试部分         | 0.1.3  |
+|  丁炳智  | 2021-7-9 |       完成前端UI测试和e2e测试        | 0.1.4  |
+|  姬筠刚  | 2021-7-9 |               文档审核               |  0.2   |
 
 ## 目录
 
-1. **简介**
-
-   1.1 项目背景
-
-   1.2 测试目的
-
-   1.3 测试环境
-
-   1.4 测试范围
-
-   1.5 参考资料
-
-2. **测试计划**
-
-   2.1 后端测试
-
-   2.2 前端测试
-
-3. **后端单元测试**
-
-   3.1 测试方向
-
-   3.2 测试准备
-
-   3.3 测试用例
-
-4. **后端集成测试**
-
-   4.1 测试方向
-
-   4.2 测试准备
-
-   4.3 测试用例
-
-5. **前端UI测试**
-
-   5.1 测试方向
-
-   5.2 测试准备
-
-   5.3 测试用例
-
-6. **e2e系统测试**
-
-   6.1 测试方向
-
-   6.2 测试准备
-
-   6.3 测试用例
-
-7. **测试覆盖率**
+[TOC]
 
 ## 1. 简介
 
 ### 1.1 项目背景
 
-+ 本项目是一个酒店预订系统，详细内容请参见需求用例文档，需求规格文档，体系结构文档，详细设计文档。
++ 本项目是一个courselearning课程学习系统，详细内容请参见需求用例文档，需求规格文档，体系结构文档，详细设计文档。
 
 + 本项目集成前端 + 后端，因此测试必须分别从两个方面着手。
 
@@ -94,13 +38,10 @@
 
   + spring boot版本：v2.4.1
   + mybatis版本：v2.1.4
-  
+
   + Junit版本：v4.13.2
   + Mockito版本：v2.23.4
-+ 前端运行于vue-cli框架上，故前端测试采用jest测试。
-  + vue-cli版本：v3
-  + jest版本：v24.9.0
-  + cypress版本：v4.9.0
++ 前端运行于vue-cli框架上，故前端测试采用postman进行测试。
 
 ### 1.4 测试范围
 
@@ -109,7 +50,7 @@
 ### 1.5 参考资料
 
 + 网上的Junit教程、Mockito教程。
-+ 网上的jest教程
++ postman使用方法
 
 ## 2. 测试计划
 
@@ -120,14 +61,14 @@
 
 ### 2.2 前端测试
 
-1. **UI测试：**主要测试每个页面的渲染效果，利用Junit调用每一个页面并闯入必要的参数，测试HTML语言与CSS语言的正确性。
-2. **e2e系统测试：**使用cypress编写自动化脚本并测试。
+1. **UI测试：**主要测试每个页面的渲染效果
+2. **e2e系统测试：**使用postman编写自动化脚本进行测试。
 
 ## 3. 后端单元测试
 
 ### 3.1 测试方向
 
-+ 测试Controller类集合的每一个方法并调用Mapper类进行数据库验证。
++ 测试Service类集合的每一个方法并调用Mapper类进行数据库验证。
 
 ### 3.2 测试准备
 
@@ -231,23 +172,346 @@
 
 #### 3.3.2  ExamMapper Test
 
++ **测试前准备**
+
++ 初始化一个Exam对象，随机输入数据，作为测试用的exam。
+
++ **测试编号 B000003**
+
+  1. 测试方法：ExamMapper.insert
+
+  2. 测试代码（截取）：
+
+     ```java
+     @Test
+         public void testInsert(){
+             Exam exam=new Exam();
+             exam.setTitle("第一次测试");
+             exam.setStartTime(new Date());
+             exam.setEndTime(new Date());
+             exam.setCourseId(1);
+             examMapper.insert(exam);
+             Exam assertExam=examMapper.selectByTitle("第一次测试");
+             assert assertExam!=null;
+             assert assertExam.getTitle().equals(exam.getTitle());
+             Exam exam1 = examMapper.selectByPrimaryKey(1);
+             assert exam1 != null;
+             assert exam1.getTitle().equals(exam.getTitle());
+         }
+     ```
+
++ **测试结果**
+
+运行通过
+
 #### 3.3.3  ExamService Test
+
++ **测试前准备**
+
++ 初始化一个ExamVO对象，随机输入数据，作为测试用的examVO。
+
++ **测试编号 B000004**
+
+  1. 测试方法：ExamService.release
+
+  2. 测试代码（截取）：
+
+     ```java
+     @Test
+         public void testRelease(){
+             ExamVO examVO=new ExamVO();
+             examVO.setId(2);
+             examVO.setTitle("测试");
+             examVO.setCourseId(2);
+             examVO.setStartTime(new Date());
+             examVO.setEndTime(new Date());
+             List<QuestionVO> questions=new ArrayList<>();
+             QuestionVO question1=new QuestionVO();
+             question1.setId(12);
+             question1.setTitle("测试发布问题一");
+             question1.setCreateTime(new Date());
+             questions.add(question1);
+             QuestionVO question2=new QuestionVO();
+             question2.setId(13);
+             question2.setTitle("测试发布问题二");
+             question2.setCreateTime(new Date());
+             questions.add(question2);
+             QuestionVO question3=new QuestionVO();
+             question3.setId(14);
+             question3.setTitle("测试发布问题三");
+             question3.setCreateTime(new Date());
+             questions.add(question3);
+             examVO.setQuestions(questions);
+             ResultVO<ExamVO> assertResult=examService.release(examVO);
+             assert assertResult.getMsg().equals("测试发布成功！");
+         }
+     ```
+
++ **测试结果**
+
+运行通过
 
 #### 3.3.4  ExamInfoMapper Test
 
++ **测试前准备**
+
++ 初始化一个ExamInfo对象，随机输入数据，作为测试用的examInfo。
+
++ **测试编号 B000005**
+
+  1. 测试方法：ExamInfoMapper.insert,ExamInfoMapper.selectByPrimaryKey
+
+  2. 测试代码（截取）：
+
+     ```java
+     @Test
+         public void testInsert(){
+             ExamInfo examInfo=new ExamInfo();
+             examInfo.setQuestionId(1);
+             examInfo.setExamId(1);
+             examInfo.setTitle("地球是圆的还是方的？（填“圆”或“方”）");
+             examInfoMapper.insert(examInfo);
+             ExamInfo checkIfInsert=examInfoMapper.selectByPrimaryKey(1,1);
+             assert checkIfInsert.getTitle().equals("地球是圆的还是方的？（填“圆”或“方”）");
+         }
+     ```
+
++ **测试结果**
+
+运行通过
+
 #### 3.3.5  AnswerMapper Test
+
++ **测试前准备**
+
++ 初始化一个Answer对象，随机输入数据，作为测试用的answer。
+
++ **测试编号 B000006**
+
+  1. 测试方法：AnswerMapper.insert,AnswerMapper.getAnswerByUidAndQuestionIdAndExamId,AnswerMapper.getQuestionIds
+
+  2. 测试代码（截取）：
+
+     ```java
+     @Test
+         public void test(){
+             Answer answer=new Answer();
+             answer.setId(1);
+             answer.setUId(1);
+             answer.setExamId(1);
+             answer.setQuestionId(1);
+             answer.setCorrect(true);
+             answer.setAnswer("好");
+             answerMapper.insert(answer);
+             answer.setQuestionId(2);
+             answerMapper.insert(answer);
+             String answer1 = answerMapper.getAnswerByUidAndQuestionIdAndExamId(1, 1, 1);
+             assert answer1.equals("好");
+             List<Integer> questionIds = answerMapper.getQuestionIds(1, 1);
+             for (int i = 0; i < questionIds.size(); i++) {
+                 questionIds.get(i).equals(i+1);
+             }
+         }
+     ```
+
++ **测试结果**
+
+运行通过
 
 #### 3.3.6  ScoreMapper Test
 
++ **测试前准备**
+
++ 初始化一个Score对象，随机输入数据，作为测试用的score。
+
++ **测试编号 B000007**
+
+  1. 测试方法：ScoreMapper.insert,ScoreMapper.selectHasDoneExamsIdByUid
+
+  2. 测试代码（截取）：
+
+     ```java
+     @Test
+         public void testSelectHasDoneExamsIdByUid(){
+             Score score0 = new Score();
+             score0.setUid(1);
+             score0.setExam_id(1);
+             score0.setScore(100);
+     
+             Score score1 = new Score();
+             score1.setUid(1);
+             score1.setExam_id(2);
+             score1.setScore(96);
+     
+             Score score2 = new Score();
+             score2.setUid(2);
+             score2.setExam_id(1);
+             score2.setScore(56);
+     
+             Score score3 = new Score();
+             score3.setUid(1);
+             score3.setExam_id(3);
+             score3.setScore(100);
+     
+             scoreMapper.insert(score0);
+             scoreMapper.insert(score1);
+             scoreMapper.insert(score2);
+             scoreMapper.insert(score3);
+     
+             List<Score> scores = scoreMapper.selectHasDoneExamsIdByUid(1);
+             List<Integer> expected = new ArrayList<>();
+             expected.add(1);expected.add(2);expected.add(3);
+             for (int i = 0; i < scores.size(); i++) {
+                 Assert.assertEquals((long)expected.get(i),scores.get(i).getExam_id());
+             }
+         }
+     ```
+
++ **测试结果**
+
+运行通过
+
++ **测试前准备**
+
++ 初始化一个Score对象，随机输入数据，作为测试用的score。
+
++ **测试编号 B000008**
+
+  1. 测试方法：ScoreMapper.insert,ScoreMapper.selectScore
+
+  2. 测试代码（截取）：
+
+     ```java
+     @Test
+         public void testSelectScore(){
+             Score score0 = new Score();
+             score0.setUid(3);
+             score0.setExam_id(1);
+             score0.setScore(100);
+     
+             scoreMapper.insert(score0);
+     
+             Score score = scoreMapper.selectScore(3, 1);
+             long expected  = 100;
+             Assert.assertEquals(expected,score.getScore());
+     
+         }
+     ```
+
++ **测试结果**
+
+运行通过
+
 #### 3.3.7  VipOrderMapper Test
 
-上面的几个我列出来的单元测试和两个集成测试你们都加上吧，仿照我写的第一个写，我心脏疼，肝不动了
++ **测试前准备**
+
++ 初始化一个VIPOrder对象，随机输入数据，作为测试用的vipOrder。
+
++ **测试编号 B000009**
+
+  1. 测试方法：VIPMapper.insert
+
+  2. 测试代码（截取）：
+
+     ```java
+     @Test
+         public void testInsert(){
+             VIPOrder vipOrder = new VIPOrder();
+             vipOrder.setUid(1);
+             vipOrder.setVip_deadline(new Date());
+             vipOrder.setVip_begin(new Date());
+             vipMapper.insert(vipOrder);
+         }
+     ```
+
++ **测试结果**
+
+运行通过
+
+#### 3.3.8 QuestionServiceTest
+
++ **测试前准备**
+
++ 初始化一个QuestionVO对象，随机输入数据，作为测试用的questionVO。
+
++ **测试编号 B000010**
+
+  1. 测试方法：QuestionService.addQuestion
+
+  2. 测试代码（截取）：
+
+     ```java
+     @Test
+         public void testAddQuestion(){
+             QuestionVO questionVO=new QuestionVO();
+             questionVO.setId(5);
+             questionVO.setCourseId(2);
+             questionVO.setTitle("你是好学生吗？");
+             questionVO.setAnswer("是");
+             questionVO.setAnalysis("你必须要说你是好学生");
+             questionVO.setCreateTime(new Date());
+             ResultVO<QuestionVO> assertResult=questionService.addQuestion(questionVO);
+             assert assertResult.getMsg().equals("题目添加成功！");
+         }
+     ```
+
++ **测试结果**
+
+运行通过
+
++ **测试编号 B000011**
+
+  1. 测试方法：QuestionService.getQuestionsByCourseID
+
+  2. 测试代码（截取）：
+
+     ```java
+     @Test
+         public void testGetQuestionsByCourseID(){
+             QuestionVO question1=new QuestionVO();
+             question1.setCourseId(2);
+             question1.setTitle("水的化学式是多少？（直接输入即可，不用管下标）.");
+             question1.setAnswer("H2O");
+             question1.setAnalysis("水的化学式就是H2O");
+             question1.setCreateTime(new Date());
+             QuestionVO question2=new QuestionVO();
+             question2.setCourseId(2);
+             question2.setTitle("水的化学式是多少？（直接输入即可，不用管下标）..");
+             question2.setAnswer("H2O");
+             question2.setAnalysis("水的化学式就是H2O");
+             question2.setCreateTime(new Date());
+             QuestionVO question3=new QuestionVO();
+             question3.setCourseId(2);
+             question3.setTitle("水的化学式是多少？（直接输入即可，不用管下标）...");
+             question3.setAnswer("H2O");
+             question3.setAnalysis("水的化学式就是H2O");
+             question3.setCreateTime(new Date());
+             List<QuestionVO> correct=new ArrayList<>();
+             correct.add(question1);
+             correct.add(question2);
+             correct.add(question3);
+             questionMapper.insert(new Question(question1));
+             questionMapper.insert(new Question(question2));
+             questionMapper.insert(new Question(question3));
+     
+             List<QuestionVO> questionVOList=questionService.getQuestionsByCourseID(2);
+             assert correct.size()==questionVOList.size();
+             for(int i=0;i<3;i++){
+                 assert correct.get(i).getTitle().equals(questionVOList.get(i).getTitle());
+             }
+         }
+     ```
+
++ **测试结果**
+
+运行通过
 
 ## 4. 后端集成测试
 
 ### 4.1 测试方向
 
-+ 测试各个用例对应逻辑层集成之后交互的情况，并验证正确性。
++ 测试各个service集成之后交互的情况，并验证正确性。
 
 ### 4.2 测试准备
 
@@ -256,22 +520,33 @@
 
 ### 4.3 测试用例
 
-#### 4.3.1 ？？？ Test
+#### 4.3.1 IntegrateUseCase234Test
 
 + **测试前准备**
 
-  + 初始化一个？？？类，随机输入数据，作为测试用的？？？。
-
+  + 初始化QuestionVO类和ExamVO类，随机输入数据，作为测试用的mock数据。
 + **测试编号 B000038**
+  1. 测试方法：test1
+  2. 集成模块：模块234
++ **测试结果**
++ ![image-20210711095117893](https://stage3-doc.oss-cn-beijing.aliyuncs.com/HomeworkImgs/image-20210711095117893.png)
 
-  1. 测试方法：
-  2. 集成模块：questionService.
+#### 4.3.1 IntegrateUseCase5678Test
+
++ **测试前准备**
+
+  + 初始化一个AnswerVO类，随机输入数据，作为测试用的mock数据。
+
++ **测试编号 B000039**
+
+  1. 测试方法：test01
+  2. 集成模块：模块5678
 
 + **测试结果**
 
-  
+  ![image-20210711095448966](https://stage3-doc.oss-cn-beijing.aliyuncs.com/HomeworkImgs/image-20210711095448966.png)
 
-## 5. 前端集成测试部分
+## 5. 前端单元、集成测试部分
 
 | 测试时间        | 测试内容                       | 测试人 | 测试工具 |
 | --------------- | ------------------------------ | ------ | -------- |

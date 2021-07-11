@@ -2,20 +2,13 @@
 
 ## 文档修改历史
 
-| 修改人员 |   日期   |        修改原因        | 版本号 |
-| :------: | :------: | :--------------------: | :----: |
-|  姬筠刚  | 2021-7-5 |       创建该文档       |  0.1   |
-|  姬筠刚  | 2021-7-6 | 完成自己分工的文档任务 | 0.1.1  |
-|  林威鹏  | 2021-7-8 | 完成自己分工的文档任务 | 0.1.2  |
-|          |          |                        |        |
-|          |          |                        |        |
-|          |          |                        |        |
-|          |          |                        |        |
-|          |          |                        |        |
-|          |          |                        |        |
-|          |          |                        |        |
-|          |          |                        |        |
-|          |          |                        |        |
+| 修改人员 |   日期   |           修改原因            | 版本号 |
+| :------: | :------: | :---------------------------: | :----: |
+|  姬筠刚  | 2021-7-5 |          创建该文档           |  0.1   |
+|  姬筠刚  | 2021-7-6 |    完成自己分工的文档任务     | 0.1.1  |
+|  林威鹏  | 2021-7-8 |    完成自己分工的文档任务     | 0.1.2  |
+|  李福梁  | 2021-7-8 | 完成自己分工的文档任务5.3,5.4 | 0.1.2  |
+|  姬筠刚  | 2021-7-8 |           审核文档            |  0.2   |
 
 ## 目录
 
@@ -196,20 +189,21 @@
 
 业务逻辑层的设计如图所示。
 
-![业务逻辑层设计类图](https://document3-architecture.oss-cn-beijing.aliyuncs.com/HomeworkImgs/业务逻辑层设计类图.png)
+![bl2](https://stage3-doc.oss-cn-beijing.aliyuncs.com/HomeworkImgs/bl2.png)
 
 #### 5.3.1 业务逻辑层模块的职责
 
 业务逻辑层模块的职责如下表所示。
 
-| 模块            | 职责                                                                                                         |
-| --------------- | ------------------------------------------------------------------------------------------------------------ |
-| userbl          | 负责用户注册、登录、获取用户信息界面所需要的服务                                                             |
-| rechargebl      | 负责用户充值界面所需要的服务                                                                                 |
-| course_orderbl  | 负责生成课程订单、更新订单状态、获取用户订单界面所需要的服务                                                 |
-| couse_warebl    | 负责用户获取课件、创建课件、更新课件、删除课件界面所需要的服务                                               |
-| course_managebl | 负责获取课程、分页获取课程列表、获取用户已购买的课程列表、获取教师可管理的课程列表、创建课程界面所需要的服务 |
-| promotionbl     | 负责使用优惠券购买课程界面、发布优惠券、发布优惠课程界面所需要的服务                                         |
+| 模块        | 职责                                                         |
+| ----------- | ------------------------------------------------------------ |
+| user_bl     | 负责用户注册、登录、获取用户信息界面所需要的服务             |
+| course_bl   | 负责获取课程、分页获取课程列表、获取用户已购买的课程列表、获取教师可管理的课程列表、创建课程界面所需要的服务 |
+| order_bl    | 负责生成课程订单、更新订单状态、获取用户订单界面所需要的服务 |
+| coupon_bl   | 负责优惠策略、优惠券发放、优惠控制所需要的服务               |
+| file_bl     | 负责发布课件、获取课件、下载课件所需要的服务                 |
+| exam_bl     | 负责发布考试和获取考试服务                                   |
+| question_bl | 负责向题库中加入题目，获取题目服务                           |
 
 #### 5.3.2业务逻辑层模块的接口规范
 
@@ -257,56 +251,189 @@
         <td>后置条件</td>
         <td>查找是否存在相应的User，根据输入的用户id返回用户信息</td>
     </tr>
+    <tr >
+        <td rowspan="3">increaseBalance</td>
+        <td>语法</td>
+        <td>void increaseBalance(Integer id, Integer delta);</td>
+    </tr>
+    <tr>
+        <td>前置条件</td>
+        <td>用户id符合输入规则</td>
+    </tr>
+    <tr>
+        <td>后置条件</td>
+        <td>查找是否存在相应的User，根据输入的用户id修改用户余额信息</td>
+    </tr>
+    <tr >
+        <td rowspan="3">decreaseBalance</td>
+        <td>语法</td>
+        <td>void decreaseBalance(Integer id, Integer delta);</td>
+    </tr>
+    <tr>
+        <td>前置条件</td>
+        <td>用户id符合输入规则</td>
+    </tr>
+    <tr>
+        <td>后置条件</td>
+        <td>查找是否存在相应的User，根据输入的用户id修改用户余额信息</td>
+    </tr>
     </table>
 
 
-| 需要的服务（需接口）               |                              |
-| ---------------------------------- | ---------------------------- |
-| 服务名                             | 服务                         |
-| userMapper.selectByPhone(phone)    | 根据用户phone值查找用户      |
-| userMapper.selectByPrimaryKey(uid) | 根据用户id查找用户信息       |
-| userMapper.insert(user)            | 向数据库中插入新注册用户数据 |
+
+
+| 需要的服务（需接口）                                  |                              |
+| ----------------------------------------------------- | ---------------------------- |
+| 服务名                                                | 服务                         |
+| userMapper.selectByPhone(phone)                       | 根据用户phone值查找用户      |
+| userMapper.selectByPrimaryKey(uid)                    | 根据用户id查找用户信息       |
+| userMapper.insert(user)                               | 向数据库中插入新注册用户数据 |
+| userMapper.deleteByPrimaryKey(Integer id)             | 根据用户删除数据库用户信息   |
+| userMapper.updateByPrimaryKey(User record)            | 跟据用户信息更新数据库       |
+| userMapper.increaseBalance(Integer id, Integer delta) | 增加数据库中用户余额字段     |
+| userMapper.decreaseBalance(Integer id, Integer delta) | 减少数据库中用户余额字段     |
 
 
 
-- **rechargebl模块**的接口规范如下表所示：
+- **course_bl模块**的接口规范如下表所示：
 
 **提供的服务（供接口）**
 
 <table>
 	<tr >
-	    <td rowspan="3">rechargeAccount</td>
+	    <td rowspan="3">CourseService.setCourseLike</td>
 	    <td>语法</td>
-	    <td>ResultVO<UserVO> rechargeAccount(RechargeOrderVO rechargeOrderVO);</td>
+	    <td>ResultVO<CourseVO> setCourseLike(Integer uid,Integer courseId);</td>
 	</tr>
 	<tr>
 	    <td>前置条件</td>
-	    <td>充值数额符合输入规则</td>
+	    <td>输入uid,courseid符合要求</td>
 	</tr>
 	<tr>
 	    <td>后置条件</td>
-	    <td>修改用户的余额</td>
+	    <td>增加点赞记录</td>
+	</tr>
+    <tr >
+	    <td rowspan="3">CourseService.cancelCourseLike</td>
+	    <td>语法</td>
+	    <td>ResultVO<CourseVO> cancelCourseLike(Integer uid,Integer courseId);</td>
+	</tr>
+	<tr>
+	    <td>前置条件</td>
+	    <td>输入uid,courseid符合要求</td>
+	</tr>
+	<tr>
+	    <td>后置条件</td>
+	    <td>删除点赞记录</td>
+	</tr>
+    <tr >
+	    <td rowspan="3">CourseService.createCourse</td>
+	    <td>语法</td>
+	    <td>ResultVO<CourseVO> createCourse(CourseVO courseVO);</td>
+	</tr>
+	<tr>
+	    <td>前置条件</td>
+	    <td>创建课程信息符合要求</td>
+	</tr>
+	<tr>
+	    <td>后置条件</td>
+	    <td>增加课程记录</td>
+	</tr>
+    <tr >
+	    <td rowspan="3">CourseService.getHotCourses</td>
+	    <td>语法</td>
+	    <td>PageInfo<CourseVO> getHotCourses(Integer currPage, Integer pageSize, Integer uid);</td>
+	</tr>
+	<tr>
+	    <td>前置条件</td>
+	    <td>输入参数符合要求</td>
+	</tr>
+	<tr>
+	    <td>后置条件</td>
+	    <td>返回对应的课程信息</td>
+	</tr>
+    <tr >
+	    <td rowspan="3">CourseService.getCoursesByType</td>
+	    <td>语法</td>
+	    <td>PageInfo<CourseVO> getCoursesByType(Integer currPage, Integer pageSize, Integer uid, String type);</td>
+	</tr>
+	<tr>
+	    <td>前置条件</td>
+	    <td>输入参数符合要求</td>
+	</tr>
+	<tr>
+	    <td>后置条件</td>
+	    <td>返回对应课程信息</td>
+	</tr>
+    <tr >
+	    <td rowspan="3">CourseService.getCourses</td>
+	    <td>语法</td>
+	    <td>PageInfo<CourseVO> getCourses(Integer currPage, Integer pageSize, Integer uid, String key);</td>
+	</tr>
+	<tr>
+	    <td>前置条件</td>
+	    <td>输入参数符合要求</td>
+	</tr>
+	<tr>
+	    <td>后置条件</td>
+	    <td>返回对应课程信息</td>
+	</tr>
+    <tr >
+	    <td rowspan="3">CourseWareService.getCourseWare</td>
+	    <td>语法</td>
+	    <td>CourseWareVO getCourseWare(Integer uid, Integer courseWareId);</td>
+	</tr>
+	<tr>
+	    <td>前置条件</td>
+	    <td>uid,courseWareId符合要求</td>
+	</tr>
+	<tr>
+	    <td>后置条件</td>
+	    <td>返回对应课件信息</td>
+	</tr>
+    <tr >
+	    <td rowspan="3">CourseWareService.updateCourseWare</td>
+	    <td>语法</td>
+	    <td>ResultVO<CourseWareVO> updateCourseWare(CourseWareVO courseWareVO);</td>
+	</tr>
+	<tr>
+	    <td>前置条件</td>
+	    <td>课件信息符合要求</td>
+	</tr>
+	<tr>
+	    <td>后置条件</td>
+	    <td>更新数据库中课件信息</td>
 	</tr>
     </table>
 
 
-| 需要的服务（需接口）                      |              |
-| ----------------------------------------- | ------------ |
-| 服务名                                    | 服务         |
-| userMapper.increaseBalance(userId, value) | 更新用户余额 |
-| rechargeOrderVO.getUserId()               | 找到充值用户 |
+
+
+| 需要的服务（需接口）                 |                  |
+| ------------------------------------ | ---------------- |
+| 服务名                               | 服务             |
+| CourseLikesMapper.deleteByPrimaryKey | 删除点赞记录服务 |
+| CourseLikesMapper.insert             | 插入点赞记录服务 |
+| CourseLikesMapper.count              | 统计点赞数量服务 |
+| CourseMapper.deleteByPrimaryKey      | 删除课程服务     |
+| CourseMapper.insert                  | 增加课程服务     |
+| CourseMapper.selectByPrimaryKey      | 获取特定课程服务 |
+| CourseMapper.updateByPrimaryKey      | 更新课程信息服务 |
+| CourseMapper.selectHotCourses        | 获取热门课程服务 |
+| CourseWareMapper.deleteByPrimaryKey  | 删除课件服务     |
+| CourseWareMapper.selectByPrimaryKey  | 获取课件服务     |
 
 
 
-- **course_orderbl模块**的接口规范如下表所示：
+- **order_bl模块**的接口规范如下表所示：
 
 **提供的服务（供接口）**
 
 <table>
 	<tr >
-	    <td rowspan="3">insertCourseOrder</td>
+	    <td rowspan="3">CourseOrderService.updateCourseOrder</td>
 	    <td>语法</td>
-	    <td>ResultVO<CourseOrderVO> insertCourseOrder(CourseOrderVO orderVO);</td>
+	    <td>ResultVO<CourseOrderVO> updateCourseOrder(Integer orderId, Integer orderStatus);</td>
 	</tr>
 	<tr>
 	    <td>前置条件</td>
@@ -316,124 +443,130 @@
 	    <td>后置条件</td>
 	    <td>保存订单信息</td>
 	</tr>
-     <tr >
-        <td rowspan="3">updateCourseOrder</td>
-        <td>语法</td>
-        <td>ResultVO<CourseOrderVO> updateCourseOrder(Integer orderId, Integer orderStatus);</td>
-    </tr>
-    <tr>
-        <td>前置条件</td>
-        <td>用户支付订单</td>
-    </tr>
-    <tr>
-        <td>后置条件</td>
-        <td>更新用户课程权限</td>
-    </tr>
     <tr >
-        <td rowspan="3">getCourseOrders</td>
-        <td>语法</td>
-        <td>List<CourseOrderVO> getCourseOrders(Integer uid);</td>
-    </tr>
-    <tr>
-        <td>前置条件</td>
-        <td>用户已经验证登录</td>
-    </tr>
-    <tr>
-        <td>后置条件</td>
-        <td>返回用户订单列表</td>
-    </tr>
-    </table>
-
-
-| 需要的服务（需接口）                                                         |                  |
-| ---------------------------------------------------------------------------- | ---------------- |
-| 服务名                                                                       | 服务             |
-| orderMapper.queryMostRecentOrder(orderVO.getUserId(), orderVO.getCourseId()) | 查询用户购买权限 |
-| userMapper.selectByPrimaryKey(order.getUserId())                             | 查找用户         |
-| userMapper.decreaseBalance(user.getId(), order.getCost())                    | 更新用户账户余额 |
-| orderMapper.insert(order)                                                    | 增加订单记录     |
-| orderMapper.selectByPrimaryKey(orderId)                                      | 查找订单         |
-| orderMapper.updateByPrimaryKey(order)                                        | 更新订单记录     |
-
-
-
-- **couse_warebl模块**的接口规范如下表所示：
-
-**提供的服务（供接口）**
-
-<table>
-	<tr >
-	    <td rowspan="3">getCourseWare</td>
+	    <td rowspan="3">CourseOrderService.getCourseOrders</td>
 	    <td>语法</td>
-	    <td>CourseWareVO getCourseWare(Integer uid, Integer courseWareId);</td>
+	    <td>List<CourseOrderVO> getCourseOrders(Integer uid);</td>
 	</tr>
 	<tr>
 	    <td>前置条件</td>
-	    <td>进入到网页，点击课件</td>
+	    <td>用户查看课程订单</td>
 	</tr>
 	<tr>
 	    <td>后置条件</td>
-	    <td>返回课件信息</td>
+	    <td>返回订单列表</td>
 	</tr>
-     <tr >
-        <td rowspan="3">createCourseWare</td>
-        <td>语法</td>
-        <td>ResultVO<CourseWareVO> createCourseWare(CourseWareVO courseWareVO);</td>
-    </tr>
-    <tr>
-        <td>前置条件</td>
-        <td>登录为教师用户</td>
-    </tr>
-    <tr>
-        <td>后置条件</td>
-        <td>生成课件</td>
-    </tr>
     <tr >
-        <td rowspan="3">updateCourseWare</td>
-        <td>语法</td>
-        <td>ResultVO<CourseWareVO> updateCourseWare(CourseWareVO courseWareVO);</td>
-    </tr>
-    <tr>
-        <td>前置条件</td>
-        <td>登录为教师用户</td>
-    </tr>
-    <tr>
-        <td>后置条件</td>
-        <td>更新课件</td>
-    </tr>
+	    <td rowspan="3">CourseOrderService.useCoupon</td>
+	    <td>语法</td>
+	    <td>ResultVO<Boolean> useCoupon(CourseOrderVO orderVO, Integer couponId);</td>
+	</tr>
+	<tr>
+	    <td>前置条件</td>
+	    <td>用户使用优惠券购买课程</td>
+	</tr>
+	<tr>
+	    <td>后置条件</td>
+	    <td>返回确认订单信息</td>
+	</tr>
     <tr >
-        <td rowspan="3">deleteCourseWare</td>
-        <td>语法</td>
-        <td>ResultVO<String> deleteCourseWare(Integer courseWareId);</td>
-    </tr>
-    <tr>
-        <td>前置条件</td>
-        <td>登录为教师用户</td>
-    </tr>
-    <tr>
-        <td>后置条件</td>
-        <td>删除课件</td>
-    </tr>
-    </table>
+	    <td rowspan="3">CourseOrderService.cancelCoupon</td>
+	    <td>语法</td>
+	    <td>ResultVO<Boolean> cancelCoupon(CourseOrderVO orderVO, Integer couponId);</td>
+	</tr>
+	<tr>
+	    <td>前置条件</td>
+	    <td>用户取消使用优惠券1</td>
+	</tr>
+	<tr>
+	    <td>后置条件</td>
+	    <td>返回确认信息</td>
+	</tr>
+    <tr >
+	    <td rowspan="3">VIPService.openVIP</td>
+	    <td>语法</td>
+	    <td>ResultVO<UserVO> openVIP(Integer uid);</td>
+	</tr>
+	<tr>
+	    <td>前置条件</td>
+	    <td>用户开通VIP</td>
+	</tr>
+	<tr>
+	    <td>后置条件</td>
+	    <td>保存开通记录</td>
+	</tr>
+    <tr >
+	    <td rowspan="3">QueryOrderService.queryMostRecentOrder</td>
+	    <td>语法</td>
+	    <td>CourseOrder queryMostRecentOrder(Integer uid, Integer courseId);</td>
+	</tr>
+	<tr>
+	    <td>前置条件</td>
+	    <td>用户查询最近历史订单</td>
+	</tr>
+	<tr>
+	    <td>后置条件</td>
+	    <td>返回最近历史订单信息</td>
+	</tr>
+    <tr >
+	    <td rowspan="3">QueryOrderService.getByPrimaryKey</td>
+	    <td>语法</td>
+	    <td>CourseOrder getByPrimaryKey(Integer orderId);</td>
+	</tr>
+	<tr>
+	    <td>前置条件</td>
+	    <td>用户查询历史订单</td>
+	</tr>
+	<tr>
+	    <td>后置条件</td>
+	    <td>返回历史订单信息</td>
+	</tr>
+    <tr >
+	    <td rowspan="3">RechargeService.rechargeAccount</td>
+	    <td>语法</td>
+	    <td>ResultVO<RechargeOrderVO> rechargeAccount(RechargeOrderVO rechargeOrderVO);</td>
+	</tr>
+	<tr>
+	    <td>前置条件</td>
+	    <td>用户账户充值</td>
+	</tr>
+	<tr>
+	    <td>后置条件</td>
+	    <td>保存充值记录</td>
+	</tr>
+</table>
 
 
-| 需要的服务（需接口）                                  |                      |
-| ----------------------------------------------------- | -------------------- |
-| 服务名                                                | 服务                 |
-| courseWareMapper.selectByPrimaryKey(courseWareId)     | 查找课件             |
-| courseOrderMapper.queryMostRecentOrder(uid, courseId) | 确认用户查看课件权限 |
+
+
+| 需要的服务（需接口）                                         |                            |
+| ------------------------------------------------------------ | -------------------------- |
+| 服务名                                                       | 服务                       |
+| RechargeOrderMapper.deleteByPrimaryKey(Integer orderId)      | 删除充值订单记录服务       |
+| RechargeOrderMapper.insert(RechargeOrder record)             | 插入充值订单记录服务       |
+| RechargeOrderMapper.selectByPrimaryKey(Integer orderId)      | 查找订单记录服务           |
+| RechargeOrderMapper.selectAll()                              | 查找所有订单记录服务       |
+| RechargeOrderMapper.updateByPrimaryKey(RechargeOrder record) | 更新充值记录服务           |
+| VIPMapper.insert(VIPOrder vipOrder)                          | 增加开通VIP订单服务        |
+| CourseOrderMapper.deleteByPrimaryKey(Integer id)             | 删除课程订单服务           |
+| CourseOrderMapper.insert(CourseOrder record)                 | 增加课程订单服务           |
+| CourseOrderMapper.selectByPrimaryKey(Integer id)             | 查找课程订单服务           |
+| CourseOrderMapper.selectAll()                                | 查找所有课程订单服务       |
+| CourseOrderMapper.updateByPrimaryKey(CourseOrder record)     | 更新课程订单服务           |
+| CourseOrderMapper.selectByUserId(Integer userId)             | 查找某用户所有订单服务     |
+| CourseOrderMapper.queryMostRecentOrder(Integer userId, Integer courseId) | 查找某用户最近课程订单服务 |
 
 
 
-- **course_managebl模块**的接口规范如下表所示：
+- **exam_bl模块**的接口规范如下表所示：
 
 **提供的服务（供接口）**
 
 <table>
 	<tr >
-	    <td rowspan="3">createCourse</td>
+	    <td rowspan="3">ExamService.release</td>
 	    <td>语法</td>
-	    <td>ResultVO<CourseVO> createCourse(CourseVO courseVO);</td>
+	    <td>ResultVO<ExamVO> release(ExamVO examVO);</td>
 	</tr>
 	<tr>
 	    <td>前置条件</td>
@@ -441,49 +574,131 @@
 	</tr>
 	<tr>
 	    <td>后置条件</td>
-	    <td>生成新课程</td>
+	    <td>生成测试</td>
 	</tr>
-     <tr >
-        <td rowspan="3">getCourses</td>
-        <td>语法</td>
-        <td>PageInfo<CourseVO> getCourses(Integer currPage, Integer pageSize, Integer uid, String key);</td>
-    </tr>
-    <tr>
-        <td>前置条件</td>
-        <td>入到网页，输入关键字</td>
-    </tr>
-    <tr>
-        <td>后置条件</td>
-        <td>根据关键字分页返回课程信息</td>
-    </tr>
     <tr >
-        <td rowspan="3">getCourse</td>
-        <td>语法</td>
-        <td>CourseVO getCourse(Integer courseId, Integer uid);</td>
-    </tr>
-    <tr>
-        <td>前置条件</td>
-        <td>进入到网页，点击课程</td>
-    </tr>
-    <tr>
-        <td>后置条件</td>
-        <td>返回课程信息</td>
-    </tr>
+	    <td rowspan="3">ExamService.getHasDoneExam</td>
+	    <td>语法</td>
+	    <td>List<ExamVO> getHasDoneExam(Integer uid);</td>
+	</tr>
+	<tr>
+	    <td>前置条件</td>
+	    <td>进入到网页，登录为学生用户</td>
+	</tr>
+	<tr>
+	    <td>后置条件</td>
+	    <td>返回学生已经完成考试列表</td>
+	</tr>
+    <tr >
+	    <td rowspan="3">ExamService.getExamResult</td>
+	    <td>语法</td>
+	    <td>ExamReviewVO getExamResult(Integer uid, Integer exam_id)</td>
+	</tr>
+	<tr>
+	    <td>前置条件</td>
+	    <td>进入到网页，登录为学生用户，进入课程学习</td>
+	</tr>
+	<tr>
+	    <td>后置条件</td>
+	    <td>返回考试结果</td>
+	</tr>
+    <tr >
+	    <td rowspan="3">ExamService.getExamsByCourseId</td>
+	    <td>语法</td>
+	    <td>List<ExamVO> getExamsByCourseId(Integer courseId);</td>
+	</tr>
+	<tr>
+	    <td>前置条件</td>
+	    <td>进入课程学习</td>
+	</tr>
+	<tr>
+	    <td>后置条件</td>
+	    <td>返回课程所有考试</td>
+	</tr>
+    <tr >
+	    <td rowspan="3">ExamService.insertAnswers</td>
+	    <td>语法</td>
+	    <td>ResultVO<List<AnswerVO>> insertAnswers(AnswerListVO answerVOList);</td>
+	</tr>
+	<tr>
+	    <td>前置条件</td>
+	    <td>学生用户提交答案</td>
+	</tr>
+	<tr>
+	    <td>后置条件</td>
+	    <td>保存学生答案</td>
+	</tr>
     </table>
 
 
-| 需要的服务（需接口）                                    |                      |
-| ------------------------------------------------------- | -------------------- |
-| 服务名                                                  | 服务                 |
-| courseMapper.queryAll(key)                              | 根据关键字查找课程   |
-| courseMapper.selectByPrimaryKey(courseId)               | 根据课程编号查找课程 |
-| courseMapper.selectByTeacherId(courseVO.getTeacherId()) | 根据课程教师查找课程 |
+
+
+| 需要的服务（需接口）                                         |                        |
+| ------------------------------------------------------------ | ---------------------- |
+| 服务名                                                       | 服务                   |
+| ExamMapper.deleteByPrimaryKey(Integer id)                    | 删除考试服务           |
+| ExamMapper.insert(Exam record)                               | 增加考试服务           |
+| ExamMapper.selectByPrimaryKey(Integer id)                    | 选择考试服务           |
+| ExamMapper.selectAll()                                       | 选择全部考试服务       |
+| ExamMapper.updateByPrimaryKey(Exam record)                   | 更新考试信息服务       |
+| ExamMapper.selectByTitle(String Title)                       | 根据标题选择考试服务   |
+| ExamMapper.selectByTitleAndCourseId(String title, Integer courseId) | 选择考试服务           |
+| ExamMapper.selectByCourseId(Integer cid)                     | 选择某门课所有考试服务 |
+
+
+
+**question_bl模块**的接口规范如下表所示：
+
+**提供的服务（供接口）**
+
+<table>
+	<tr >
+	    <td rowspan="3">QuestionService.addQuestion</td>
+	    <td>语法</td>
+	    <td>ResultVO<QuestionVO> addQuestion(QuestionVO question);</td>
+	</tr>
+	<tr>
+	    <td>前置条件</td>
+	    <td>进入到网页，登录为教师用户</td>
+	</tr>
+	<tr>
+	    <td>后置条件</td>
+	    <td>向题库添加题目</td>
+	</tr>
+    <tr >
+	    <td rowspan="3">QuestionService.getQuestionsByCourseID</td>
+	    <td>语法</td>
+	    <td>List<QuestionVO> getQuestionsByCourseID(Integer courseID);</td>
+	</tr>
+	<tr>
+	    <td>前置条件</td>
+	    <td>进入到网页，登录为教师用户</td>
+	</tr>
+	<tr>
+	    <td>后置条件</td>
+	    <td>返回课程对应问题</td>
+	</tr>
+    </table>
+
+
+
+
+| 需要的服务（需接口）              |                        |
+| --------------------------------- | ---------------------- |
+| 服务名                            | 服务                   |
+| QuestionMapper.deleteByPrimaryKey | 删除问题服务           |
+| QuestionMapper.insert             | 增加问题服务           |
+| QuestionMapper.selectByPrimaryKey | 根据问题ID查找题目服务 |
+| QuestionMapper.selectAll          | 查找题库中所有问题服务 |
+| QuestionMapper.updateByPrimaryKey | 更新问题服务           |
+| QuestionMapper.selectBycourseID   | 根据课程选取题目服务   |
+| QuestionMapper.selectByTitle      | 根据标题选取题目服务   |
 
 ### 5.4 数据层的分解
 
 数据层模块的描述如图所示。
 
-![数据层模块描述](https://document3-architecture.oss-cn-beijing.aliyuncs.com/HomeworkImgs/数据层模块描述.png)
+![数据层模块](https://stage3-doc.oss-cn-beijing.aliyuncs.com/HomeworkImgs/数据层模块.png)
 
 #### 5.4.1 数据层模块的职责
 
@@ -494,6 +709,11 @@
 | CourseWareMapper    | 负责课件的增、删、改、查服务                       |
 | CourseOrderMapper   | 负责订单信息的增、删、改、查服务                   |
 | CourseMapper        | 负责课程信息的增、删、改、查服务                   |
+| AnswerMapper        | 负责答案的增、删、改、查服务                       |
+| ExamInfoMapper      | 负责考试信息的增、删、改、查服务                   |
+| ExamMapper          | 负责考试的增、删、改、查服务                       |
+| QuestionMapper      | 负责题库的增、删、改、查服务                       |
+| ScoreMapper         | 负责学生分数的增、删、改、查服务                   |
 
 #### 5.4.2 数据层模块的接口规范
 
@@ -578,8 +798,72 @@
         <td>后置条件</td>
         <td>返回课程查找结果</td>
     </tr>
+    <tr >
+        <td rowspan="3">AnswerMapper.insert</td>
+        <td>语法</td>
+        <td>int insert(Answer answer);</td>
+    </tr>
+    <tr>
+        <td>前置条件</td>
+        <td>用户提交答案</td>
+    </tr>
+    <tr>
+        <td>后置条件</td>
+        <td>返回提示“考试提交成功”</td>
+    </tr>
+    <tr >
+        <td rowspan="3">ExamInfoMapper.insert</td>
+        <td>语法</td>
+        <td>int insert(ExamInfo record);</td>
+    </tr>
+    <tr>
+        <td>前置条件</td>
+        <td>教师添加题目</td>
+    </tr>
+    <tr>
+        <td>后置条件</td>
+        <td>返回提示“添加成功”</td>
+    </tr>
+    <tr >
+        <td rowspan="3">ExamMapper.insert</td>
+        <td>语法</td>
+        <td>int insert(Exam record);</td>
+    </tr>
+    <tr>
+        <td>前置条件</td>
+        <td>教师创建考试</td>
+    </tr>
+    <tr>
+        <td>后置条件</td>
+        <td>返回提示“创建考试成功”</td>
+    </tr>
+    <tr >
+        <td rowspan="3">QuestionMapper.insert</td>
+        <td>语法</td>
+        <td>int insert(Question record);</td>
+    </tr>
+    <tr>
+        <td>前置条件</td>
+        <td>教师添加题目</td>
+    </tr>
+    <tr>
+        <td>后置条件</td>
+        <td>返回提示“添加成功”</td>
+    </tr>
+    <tr >
+        <td rowspan="3">ScoreMapper.selectScore</td>
+        <td>语法</td>
+        <td>Integer selectScore(int uid,int exam_id);</td>
+    </tr>
+    <tr>
+        <td>前置条件</td>
+        <td>用户点击“查看考试结果”</td>
+    </tr>
+    <tr>
+        <td>后置条件</td>
+        <td>返回学生课程考试分数</td>
+    </tr>
     </table>
-
 
 
 ## 6. 信息视角
@@ -684,4 +968,5 @@ public class Course {
 
 课程学习网站系统的数据库中包含以下表：
 
-<img src="https://document3-architecture.oss-cn-beijing.aliyuncs.com/HomeworkImgs/数据库表.png" style="zoom:67%;" />
+![image-20210711103819204](https://stage3-doc.oss-cn-beijing.aliyuncs.com/HomeworkImgs/image-20210711103819204.png)
+
